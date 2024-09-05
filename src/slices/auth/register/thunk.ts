@@ -14,16 +14,22 @@ import {
 } from "./reducer";
 
 // initialize relavant method of both Auth
-const fireBaseBackend : any = getFirebaseBackend();
+//const fireBaseBackend : any = getFirebaseBackend();
 
 // Is user register successfull then direct plot user in redux.
 export const registerUser = (user : any) => async (dispatch : any) => {
   try {
     let response;
 
+    // initialize relavant method of both Auth
+    const fireBaseBackend : any = getFirebaseBackend();
+
     if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
       response = fireBaseBackend.registerUser(user.email, user.password);
-      // yield put(registerUserSuccessful(response));
+      console.log("FIREBASE RESPONSE: ", response);
+
+      dispatch(registerUserSuccessful(response));
+      //yield put(registerUserSuccessful(response));
     } else if (process.env.REACT_APP_DEFAULTAUTH === "jwt") {
       response = postJwtRegister('/post-jwt-register', user);
       // yield put(registerUserSuccessful(response));

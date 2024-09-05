@@ -137,12 +137,12 @@ const Layout = (props: any) => {
                     headerClass={headerClass}
                     layoutModeType={layoutModeType}
                     onChangeLayoutMode={onChangeLayoutMode} />
-                <Sidebar layoutType={layoutType} />
+               {/*  <Sidebar layoutType={layoutType} /> */}
                 <div className="main-content">{props.children}
                     <Footer />
                 </div>
             </div>
-            <RightSidebar />
+            {/* <RightSidebar /> */}
         </React.Fragment>
 
     );

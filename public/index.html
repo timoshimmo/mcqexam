@@ -25,6 +25,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>MCQ - Earn a IT Certificate</title>
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -39,5 +40,159 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    
+    <script type='text/javascript'>
+    const quizData = [
+      {
+      question: "The piece of hardware that converts your computer’s digital signal to an analog signal that can travel over telephone lines is called a ?",
+      a: "Red Wire",
+      b: "Blue Cord",
+      c: "Tower",
+      d: "Modem",
+      correct: "d" },
+      
+      {
+      question: "The synchronous modems are more costly than the asynchronous modems because ?",
+      a: "They produce large volume of data",
+      b: "They contain clock recovery circuits",
+      c: "They transmit the data with stop and start bits",
+      d: "They operate with a larger bandwidth",
+      correct: "b" },
+      
+      {
+      question: "An alternate name for the completely interconnected network topology is ?",
+      a: "Mesh",
+      b: "Star",
+      c: "Tree",
+      d: "Ring",
+      correct: "a" },
+      
+      {
+      question: "A collection of interrelated records is called a ?",
+      a: "Management information system",
+      b: "Spreadsheet",
+      c: "Database",
+      d: "Text File ",
+      correct: "c" },
+      
+      {
+      question: "Grouping and processing all of a firm’s transactions at one time is called ?",
+      a: "A database management system",
+      b: "Batch processing",
+      c: "A real-time system",
+      d: "An online system",
+      correct: "b" },
+      
+      {
+      question: "_______ provides total solutions to reduce data redundancy, inconsistency, dependence and unauthorized access of data ?",
+      a: "DBMS",
+      b: "Tables",
+      c: "Database",
+      d: "Protection passwords",
+      correct: "a" },
+      
+      {
+      question: "______ search engine sends request for information to several search engines simultaneously and compiles the results ?",
+      a: "Meta",
+      b: "Individual",
+      c: "Directory",
+      d: "Subject directory",
+      correct: "a" },
+      
+      {
+      question: "To access a website or web content from a web server, the client sends a(n) ______ ?",
+      a: "Information",
+      b: "Message",
+      c: "Request",
+      d: "Response",
+      correct: "c" },
+      
+      {
+      question: "Which of the following software could assist someone who cannot use their hands for computer input ?",
+      a: "Video conferencing",
+      b: "Speech recognition",
+      c: "Audio digitizer",
+      d: "Synthesizer",
+      correct: "b" },
+      
+      
+      {
+      question: "__________ is the process of finding errors in software code ?",
+      a: "Hacking",
+      b: "Compiling",
+      c: "Testing",
+      d: "Debugging",
+      correct: "d" }
+      
+      ];
+      
+      const quiz = document.getElementById("quiz");
+      const answerEls = document.querySelectorAll(".answer");
+      const questionEl = document.getElementById("question");
+      const a_text = document.getElementById("a_text");
+      const b_text = document.getElementById("b_text");
+      const c_text = document.getElementById("c_text");
+      const d_text = document.getElementById("d_text");
+      const submitBtn = document.getElementById("submit");
+      
+      let currentQuiz = 0;
+      let score = 0;
+      let attempt = 0;
+      
+      loadQuiz();
+      
+      function loadQuiz() {
+      deselectAnswers();
+      
+      const currentQuizData = quizData[currentQuiz];
+      
+      questionEl.innerHTML = currentQuizData.question;
+      a_text.innerHTML = currentQuizData.a;
+      b_text.innerHTML = currentQuizData.b;
+      c_text.innerHTML = currentQuizData.c;
+      d_text.innerHTML = currentQuizData.d;
+      }
+      
+      function getSelected() {
+      let answer = undefined;
+      answerEls.forEach(answerEl => {
+      if (answerEl.checked) {
+      answer = answerEl.id;
+      }
+      });
+      return answer;
+      }
+      
+      function deselectAnswers() {
+      answerEls.forEach(answerEl => {
+      answerEl.checked = false;
+      });
+      }
+      
+      submitBtn.addEventListener("click", () => {
+      const answer = getSelected();
+      if (answer) {
+      if (answer === quizData[currentQuiz].correct) {
+          attempt = 0;
+          score++;
+          currentQuiz++;
+      }
+      else {
+          if(attempt < 1) {
+              attempt++;
+          }
+          else {
+              attempt = 0;
+              currentQuiz++;
+          }
+          
+      }
+      
+      if (currentQuiz < quizData.length) { loadQuiz(); } else { quiz.innerHTML=` <h2>You answered ${score}/${quizData.length} correctly.</h2>
+          <button onclick="window.location.reload();">Reload</button>
+          `;
+          }
+          }
+          });</script>
   </body>
 </html>

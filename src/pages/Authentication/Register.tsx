@@ -23,7 +23,13 @@ import logoIpsum from "../../assets/images/logoipsum-317.svg";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 import { createSelector } from "reselect";
 
+//import { getFirebaseBackend } from "../../helpers/firebase_helper";
+
 const Register = () => {
+
+    // initialize relavant method of both Auth
+    //const fireBaseBackend : any = getFirebaseBackend();
+
     const [loader, setLoader] = useState<boolean>(false);
     const history = useNavigate();
     const dispatch = useDispatch<any>();
@@ -47,10 +53,15 @@ const Register = () => {
                 .required("Please confirm your password"),
         }),
         onSubmit: (values) => {
+            setLoader(true);
             dispatch(registerUser(values));
-            setLoader(true)
+            //handleRegister(values);
         }
     });
+
+   /* const handleRegister = (data: any) => {
+        fireBaseBackend.registerUser(data.email, data.password);
+    } */
 
     const selectLayoutState = (state: any) => state.Account;
     const registerdatatype = createSelector(
@@ -74,6 +85,7 @@ const Register = () => {
         setTimeout(() => {
             dispatch(resetRegisterFlag());
         }, 3000);
+        
 
     }, [dispatch, success, error, history]);
 

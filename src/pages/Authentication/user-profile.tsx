@@ -22,10 +22,11 @@ import { useFormik } from "formik";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 
-import avatar from "../../assets/images/users/avatar-1.jpg";
+import avatar from "../../assets/images/users/user-dummy-img.jpg";
 // actions
 import { editProfile, resetProfileFlag } from "../../slices/thunks";
 import { createSelector } from "reselect";
+import BreadCrumb from "Components/Common/BreadCrumb";
 
 const UserProfile = () => {
   const dispatch = useDispatch<any>();
@@ -33,7 +34,7 @@ const UserProfile = () => {
   const [email, setemail] = useState("admin@gmail.com");
   const [idx, setidx] = useState("1");
 
-  const [userName, setUserName] = useState("Admin");
+  const [userName, setUserName] = useState("");
 
   const selectLayoutState = (state: any) => state.Profile;
   const userprofileData = createSelector(
@@ -56,14 +57,14 @@ const UserProfile = () => {
         const obj = JSON.parse(storedUser);
 
         if (!isEmpty(user)) {
-          obj.data.first_name = user.first_name;
+          //obj.data.first_name = user.first_name;
           sessionStorage.removeItem("authUser");
           sessionStorage.setItem("authUser", JSON.stringify(obj));
         }
 
-        setUserName(obj.data.first_name);
-        setemail(obj.data.email);
-        setidx(obj.data._id || "1");
+        //setUserName(obj.data.first_name);
+       // setemail(obj.data.email);
+        //setidx(obj.data._id || "1");
 
         setTimeout(() => {
           dispatch(resetProfileFlag());
@@ -79,7 +80,7 @@ const UserProfile = () => {
     enableReinitialize: true,
 
     initialValues: {
-      first_name: userName || 'Admin',
+      first_name: userName,
       idx: idx || '',
     },
     validationSchema: Yup.object({
@@ -90,11 +91,12 @@ const UserProfile = () => {
     }
   });
 
-  document.title = "Profile | Velzon - React Admin & Dashboard Template";
+  document.title = "Profile";
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
+        <BreadCrumb title="Profile" pageTitle="Home" />
           <Row>
             <Col lg="12">
               {error && error ? <Alert color="danger">{error}</Alert> : null}
